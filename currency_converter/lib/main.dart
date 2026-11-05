@@ -32,6 +32,8 @@ class currencyconversion extends StatefulWidget{
     ValueChanged<double>? get onChanged => null;
     String _userinput = "";
     var _currencies = ['GDP','EUR','USD','JPY','AUD'];
+    var _fromcurrencies = ['GDP','EUR','USD','JPY','AUD'];
+    String _fromcurrrencyvalue = 'GDP';
     String _currencyvalue = 'GDP';
 
 
@@ -102,7 +104,28 @@ class currencyconversion extends StatefulWidget{
                   });
                 },
                 ),
-                  ]
+                 IconButton(onPressed:(){ 
+                  setState(() {
+                    String tempvalue = _fromcurrrencyvalue;
+                    _fromcurrrencyvalue =_currencyvalue;
+                    _currencyvalue = tempvalue;
+                  });
+                }, icon:const Icon(Icons.swap_horizontal_circle_sharp)),
+                  
+                Text("From", style: theme.textTheme.titleMedium),
+                DropdownButton(
+                  value: _fromcurrrencyvalue,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: _fromcurrencies.map((String value){
+                    return DropdownMenuItem(value: value, child: Text(value));
+                  }).toList(),
+                onChanged: (String? newValue){
+                  setState(() {
+                    _fromcurrrencyvalue = newValue!;
+                  });
+                },
+                ),
+               ]
             ),
               ]
             ),
