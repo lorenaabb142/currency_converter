@@ -16,24 +16,24 @@ class MyApp extends StatelessWidget {
       
         colorScheme: .fromSeed(seedColor: const Color.fromARGB(255, 93, 188, 139)),
       ),
-      home: const MyHomePage(title: 'Currency Converter'),
+      home: currencyconversion(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
- 
-
-  final String title;
+class currencyconversion extends StatefulWidget{
+  const currencyconversion({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
+  State<currencyconversion> createState() => _currencyconversionState();
+  }
 
-class _MyHomePageState extends State<MyHomePage> {
- 
+  class _currencyconversionState extends State<currencyconversion>{
+    ValueChanged<double>? get onChanged => null;
+    String _userinput = "";
+    var _currencies = ['GDP','EUR','USD','JPY','AUD'];
+    String _currencyvalue = 'GDP';
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text("Currency converter"),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -61,8 +61,52 @@ class _MyHomePageState extends State<MyHomePage> {
                 Text("Converted:", style: theme.textTheme.titleMedium),
                 Text("100", style: style.copyWith(color: theme.colorScheme.onPrimary, fontSize: theme.textTheme.bodyMedium?.fontSize),),
               ],
+            ) 
+          ),
+          Padding(padding: const EdgeInsets.all(8),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                color:  theme.colorScheme.onPrimary,
+                width: 2
+              )
             ),
-          )
+            child: Column(
+              children: [
+                TextField(
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: "Enter amount wanted to be converted",
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    setState(() {
+                      _userinput = value;
+                    });
+                  } ,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                Text("To:", style: theme.textTheme.titleMedium),
+                DropdownButton(
+                  value: _currencyvalue,
+                  icon: const Icon(Icons.keyboard_arrow_down),
+                  items: _currencies.map((String value){
+                    return DropdownMenuItem(value: value, child: Text(value));
+                  }).toList(),
+                onChanged: (String? newValue){
+                  setState(() {
+                    _currencyvalue = newValue!;
+                  });
+                },
+                ),
+                  ]
+            ),
+              ]
+            ),
+          ),)
         ],
       ),
     );
