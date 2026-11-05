@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -30,7 +31,7 @@ class CurrencyConversion extends StatefulWidget{
 
   class _CurrencyConversionState extends State<CurrencyConversion>{
     ValueChanged<double>? get onChanged => null;
-    String _userinput = "";//variable used to have userinput the number they want to convert
+    String _userinput = "0";//variable used to have userinput the number they want to convert
     double finalnumber = 0; //the final number for conversion
    var _fromcurrencies = ['GBP','EUR','USD','JPY','AUD']; //the list of currencies that could convert from for
       var _currencies = ['GBP','EUR','USD','JPY','AUD'];//the list of currencies that a user can input
@@ -39,10 +40,12 @@ class CurrencyConversion extends StatefulWidget{
     String _currencyvalue = 'GBP'; //generic value for the second dropdown display
     var _conversions = {'GBP':1,'EUR':1.20 ,'USD':1.35, 'JPY':213.31,'AUD': 1.92}; //matrix fo conversion
     
-    void currencyconverter(){
+    String currencyconverter(){
      finalnumber= int.parse(_userinput) / _conversions[_fromcurrencies]!; //converting the from currecny to gdp for easier calculation
 
-      
+     finalnumber = finalnumber * _conversions[_currencies]!;
+    
+    return finalnumber.toString();
     }
 
 
@@ -70,7 +73,7 @@ class CurrencyConversion extends StatefulWidget{
             child: Column(
               children: [
                 Text("Converted:", style: theme.textTheme.titleMedium),
-                Text("100", style: style.copyWith(color: theme.colorScheme.onPrimary, fontSize: theme.textTheme.bodyMedium?.fontSize),),
+                Text(currencyconverter(), style: style.copyWith(color: theme.colorScheme.onPrimary, fontSize: theme.textTheme.bodyMedium?.fontSize),),
                 //creating the display to show the final conversion
               ],
             ) 
