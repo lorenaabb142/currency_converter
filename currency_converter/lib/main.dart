@@ -53,7 +53,7 @@ class CurrencyConversion extends StatefulWidget{
     var theme = Theme.of(context);
     final style = theme.textTheme.titleLarge!.copyWith(
       color: theme.colorScheme.onPrimary,
-      fontWeight: FontWeight.normal
+      fontWeight: FontWeight.bold
     );
 
     return Scaffold(
@@ -72,12 +72,13 @@ class CurrencyConversion extends StatefulWidget{
             child: Column(
               children: [
                 Text("Converted:", style: theme.textTheme.titleMedium),
-                Text(currencyconverter(), style: style.copyWith(color: theme.colorScheme.onPrimary, fontSize: theme.textTheme.bodyMedium?.fontSize),),
+                Text(currencyconverter(), style: style.copyWith(color: theme.colorScheme.onPrimary, fontSize: theme.textTheme.bodyLarge?.fontSize),)                //shows the conversion rate of the equation
                 //creating the display to show the final conversion
               ],
             ) 
           ),
           SizedBox(height: 20, width: 20), //adds space between the display of the final number and the input
+          Text("Conversion Rate: 1 $_fromcurrrencyvalue = ${(_conversions[_fromcurrrencyvalue]! / _conversions[_currencyvalue]!).toStringAsFixed(2)} $_currencyvalue ", style: theme.textTheme.labelSmall, textAlign: TextAlign.center),//adds the conversion rate between the two currencies
 
           Padding(padding: const EdgeInsets.all(8),
           child: Container(
