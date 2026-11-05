@@ -16,25 +16,34 @@ class MyApp extends StatelessWidget {
       
         colorScheme: .fromSeed(seedColor: const Color.fromARGB(255, 93, 188, 139)),
       ),
-      home: currencyconversion(),
+      home: CurrencyConversion(),
     );
   }
 }
 
-class currencyconversion extends StatefulWidget{
-  const currencyconversion({super.key});
+class CurrencyConversion extends StatefulWidget{
+  const CurrencyConversion({super.key});
 
   @override
-  State<currencyconversion> createState() => _currencyconversionState();
+  State<CurrencyConversion> createState() => _CurrencyConversionState();
   }
 
-  class _currencyconversionState extends State<currencyconversion>{
+  class _CurrencyConversionState extends State<CurrencyConversion>{
     ValueChanged<double>? get onChanged => null;
-    String _userinput = "";
-    var _currencies = ['GDP','EUR','USD','JPY','AUD'];
-    var _fromcurrencies = ['GDP','EUR','USD','JPY','AUD'];
-    String _fromcurrrencyvalue = 'GDP';
-    String _currencyvalue = 'GDP';
+    String _userinput = "";//variable used to have userinput the number they want to convert
+    double finalnumber = 0; //the final number for conversion
+   var _fromcurrencies = ['GBP','EUR','USD','JPY','AUD']; //the list of currencies that could convert from for
+      var _currencies = ['GBP','EUR','USD','JPY','AUD'];//the list of currencies that a user can input
+
+    String _fromcurrrencyvalue = 'GBP'; //generic value for the first dropdown display
+    String _currencyvalue = 'GBP'; //generic value for the second dropdown display
+    var _conversions = {'GBP':1,'EUR':1.20 ,'USD':1.35, 'JPY':213.31,'AUD': 1.92}; //matrix fo conversion
+    
+    void currencyconverter(){
+     finalnumber= int.parse(_userinput) / _conversions[_fromcurrencies]!; //converting the from currecny to gdp for easier calculation
+
+      
+    }
 
 
   @override
@@ -62,6 +71,7 @@ class currencyconversion extends StatefulWidget{
               children: [
                 Text("Converted:", style: theme.textTheme.titleMedium),
                 Text("100", style: style.copyWith(color: theme.colorScheme.onPrimary, fontSize: theme.textTheme.bodyMedium?.fontSize),),
+                //creating the display to show the final conversion
               ],
             ) 
           ),
@@ -86,6 +96,7 @@ class currencyconversion extends StatefulWidget{
                     setState(() {
                       _userinput = value;
                     });
+                    //creating the field where the user inputs the number they want converted
                   } ,
                 ),
                 Row(
@@ -98,10 +109,11 @@ class currencyconversion extends StatefulWidget{
                   items: _currencies.map((String value){
                     return DropdownMenuItem(value: value, child: Text(value));
                   }).toList(),
-                onChanged: (String? newValue){
+                onChanged: (newValue){
                   setState(() {
                     _currencyvalue = newValue!;
                   });
+                  //creating the drop down menu for users to select the currency the want to convert
                 },
                 ),
                  IconButton(onPressed:(){ 
@@ -111,6 +123,7 @@ class currencyconversion extends StatefulWidget{
                     _currencyvalue = tempvalue;
                   });
                 }, icon:const Icon(Icons.swap_horizontal_circle_sharp)),
+                //creating a button for the user to swap the to and from currencies
                   
                 Text("From", style: theme.textTheme.titleMedium),
                 DropdownButton(
@@ -119,10 +132,11 @@ class currencyconversion extends StatefulWidget{
                   items: _fromcurrencies.map((String value){
                     return DropdownMenuItem(value: value, child: Text(value));
                   }).toList(),
-                onChanged: (String? newValue){
+                onChanged: (newValue){
                   setState(() {
                     _fromcurrrencyvalue = newValue!;
                   });
+                  //creating the drop down menu for currencies from which the user can convert from
                 },
                 ),
                ]
