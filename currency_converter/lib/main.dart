@@ -31,7 +31,7 @@ class CurrencyConversion extends StatefulWidget{
 
   class _CurrencyConversionState extends State<CurrencyConversion>{
     ValueChanged<double>? get onChanged => null;
-    String _userinput = "0";//variable used to have userinput the number they want to convert
+    String _userinput = "";//variable used to have userinput the number they want to convert
     double finalnumber = 0; //the final number for conversion
    var _fromcurrencies = ['GBP','EUR','USD','JPY','AUD']; //the list of currencies that could convert from for
       var _currencies = ['GBP','EUR','USD','JPY','AUD'];//the list of currencies that a user can input
@@ -41,10 +41,10 @@ class CurrencyConversion extends StatefulWidget{
     var _conversions = {'GBP':1,'EUR':1.20 ,'USD':1.35, 'JPY':213.31,'AUD': 1.92}; //matrix fo conversion
     
     String currencyconverter(){
-     finalnumber= int.parse(_userinput) / _conversions[_fromcurrrencyvalue]!; //converting the from currecny to gdp for easier calculation
+     finalnumber= (double.tryParse(_userinput)?? 0) / _conversions[_fromcurrrencyvalue]!; //converting the from currecny to gdp for easier calculation
 
      finalnumber = finalnumber * _conversions[_currencyvalue]!;
-    return finalnumber.toStringAsFixed(2);
+      return finalnumber.toStringAsFixed(2);
     }
 
 
