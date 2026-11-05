@@ -41,11 +41,10 @@ class CurrencyConversion extends StatefulWidget{
     var _conversions = {'GBP':1,'EUR':1.20 ,'USD':1.35, 'JPY':213.31,'AUD': 1.92}; //matrix fo conversion
     
     String currencyconverter(){
-     finalnumber= int.parse(_userinput) / _conversions[_fromcurrencies]!; //converting the from currecny to gdp for easier calculation
+     finalnumber= int.parse(_userinput) / _conversions[_fromcurrrencyvalue]!; //converting the from currecny to gdp for easier calculation
 
-     finalnumber = finalnumber * _conversions[_currencies]!;
-    
-    return finalnumber.toString();
+     finalnumber = finalnumber * _conversions[_currencyvalue]!;
+    return finalnumber.toStringAsFixed(2);
     }
 
 
@@ -78,6 +77,8 @@ class CurrencyConversion extends StatefulWidget{
               ],
             ) 
           ),
+          SizedBox(height: 20, width: 20), //adds space between the display of the final number and the input
+
           Padding(padding: const EdgeInsets.all(8),
           child: Container(
             decoration: BoxDecoration(
@@ -102,9 +103,11 @@ class CurrencyConversion extends StatefulWidget{
                     //creating the field where the user inputs the number they want converted
                   } ,
                 ),
+                SizedBox(height:20, width: 20), //adds space between the input and the to and from drop down menus and the swap icon button
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
+                    SizedBox(width: 16,height: 15),
                 Text("To:", style: theme.textTheme.titleMedium),
                 DropdownButton(
                   value: _currencyvalue,
@@ -119,6 +122,7 @@ class CurrencyConversion extends StatefulWidget{
                   //creating the drop down menu for users to select the currency the want to convert
                 },
                 ),
+
                  IconButton(onPressed:(){ 
                   setState(() {
                     String tempvalue = _fromcurrrencyvalue;
